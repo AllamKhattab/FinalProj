@@ -1,125 +1,109 @@
+Sure, I'll help you create a README.md file. Here's a template based on your requirements:
 
-# DemoBlaze Automation Testing Project
+```markdown
+# Testing Center of Excellence
 
-This project automates testing for the **DemoBlaze** website using **Selenium**, **Cucumber**, and **TestNG**. It covers scenarios such as user signup, login, adding products to the cart, and completing a purchase, using **Behavior-Driven Development (BDD)**.
+This project implements a robust testing framework using Java, Selenium, Cucumber, and REST Assured. It includes UI, Mobile, and API test cases. Below are the features and instructions for setting up and running the tests.
 
-## Table of Contents
-- [Project Description](#project-description)
-- [Tools & Technologies](#tools-and-technologies)
-- [Setup Instructions](#setup-instructions)
-- [Running the Tests](#running-the-tests)
-- [Test Scenarios](#test-scenarios)
-- [Code Explanation](#code-explanation)
+## Features
 
-## Project Description
-This project automates user interactions on the **DemoBlaze** website. The primary functionality being tested includes:
+### UI Test Cases
+1. Framework designed in Java using Selenium.
+2. Test cases written in Gherkin language using Cucumber.
+3. Supports Chrome and Firefox browsers. Browser selection is configurable.
+4. URL stored in the configuration file.
+5. Tests can be executed in parallel.
+6. Implemented Page Object Model design pattern.
+7. Scenario One:
+   - Test data file containing 4 sets of data.
+   - Test runs 4 times with each data set.
 
-- User sign-up and login
-- Adding products to the shopping cart
-- Completing a purchase
-- Verifying the correct display of product titles and prices in the cart
+### Mobile Test Cases
+1. Login scenarios for the Android application:
+   - Positive and negative scenarios.
+   - Asserts successful login.
 
-The tests are written using **Cucumber** for BDD and executed with **Selenium WebDriver** to automate the browser interactions.
+### API Test Cases
+1. API requests (GET, POST, PATCH, DELETE) using REST Assured framework.
 
-## Tools & Technologies
+## Setup and Configuration
 
-The following tools and technologies are used in this project:
-
-- **Java**: Programming language for test scripts.
-- **Selenium WebDriver**: Tool for automating web browser interactions.
-- **Cucumber**: For BDD-style testing using `.feature` files.
-- **TestNG**: Testing framework used to run the Cucumber tests.
-- **Maven**: Build automation tool to manage dependencies and test execution.
-- **ExtentReports**: For generating detailed test execution reports.
-
-## Setup Instructions
-
-### Prerequisites
-1. **Java** (JDK 23 or higher) installed on your system.
-2. **Maven** installed on your system.
-3. **IDE** (**IntelliJ IDEA**) to edit and run the code.
-
-### Steps to Set Up
-
-1. Clone the repository to your local machine.
-2. Install the required dependencies using Maven:
-    ```bash
-    mvn clean install
-    ```
-
-### Browser Driver Setup
-
-Make sure you have the appropriate WebDriver for the browser you wish to run tests on. For example:
-
-- **Chrome**:
-- **Edge**: 
-- **Firefox**:
-
-
-### Running the Tests
-
-1. To run all tests:
-   ```bash
-   mvn test
+1. **Clone the repository:**
+   ```sh
+   git clone <repository-url>
    ```
-2. To run specific scenarios, use Cucumber tags. For example, to run tests tagged with `@Smoke_Testing`:
-   ```bash
-   mvn test -Dcucumber.options="--tags @Smoke_Testing"
+2. **Navigate to the project directory:**
+   ```sh
+   cd project-directory
+   ```
+3. **Install dependencies:**
+   ```sh
+   mvn install
+   ```
+4. **Configuration file:**
+   - **Browsers:** Update the `config.properties` file to select the browser (Chrome or Firefox).
+   - **URL:** Update the `config.properties` file with the application URL.
 
+## Running the Tests
+
+1. **Run UI tests:**
+   ```sh
+   mvn test -Dtest=UITests
    ```
-3. Once tests are completed, view the test execution report located at:
+2. **Run Mobile tests:**
+   ```sh
+   mvn test -Dtest=MobileTests
    ```
-   target/cucumber-html-report/index.html
+3. **Run API tests:**
+   ```sh
+   mvn test -Dtest=APITests
    ```
 
 ## Test Scenarios
 
-### 1. Verify User Sign-Up
+### UI Test Case
 
-- Navigate to the DemoBlaze homepage.
-- Click on the "Sign up" button and fill out the form with valid credentials.
-- Confirm that the success message "Sign up successful" appears.
+**Scenario One (Invalid Login):**
+1. Visit [Sauce Demo](https://www.saucedemo.com/).
+2. Login with invalid credentials.
+3. Verify each error message.
 
-### 2. Verify User Login
+**Scenario Two (Valid Login and Product Checkout):**
+1. Visit [Sauce Demo](https://www.saucedemo.com/).
+2. Login with valid username and password.
+3. Verify successful login and navigation to products page.
+4. Add the most expensive two products to your cart.
+5. Click on the cart button.
+6. Verify navigation to the Cart page and selected products.
+7. Click on the Checkout button.
+8. Verify navigation to the Checkout page.
+9. Fill all the displayed form.
+10. Click on the Continue button.
+11. Verify:
+   - Navigation to the Overview page.
+   - Items total amount before taxes.
+   - URL matches (https://www.saucedemo.com/checkout-step-two.html).
+12. Click on the Finish button.
+13. Verify both Thank You and Order has been dispatched messages.
 
-- Click on the "Login" button and fill in valid credentials.
-- Ensure that the "Logout" button appears, indicating a successful login.
+**Credentials:**
+- **Username:** standard_user
+- **Password:** secret_sauce
 
-### 3. Verify Product Purchase
 
-- Log in to the system.
-- Add two products from the "Laptops" category to the cart.
-- Verify that both products are added to the cart.
-- Proceed to checkout and fill out the purchase form.
-- Verify that the message "Thank you for your purchase!" appears.
+## Reporting
 
-### 4. Verify Total Amount Calculation
+1. Test run reports are generated after execution.
+2. Reports are available in the `target/cucumber-reports` directory.
 
-- Add products to the cart.
-- Ensure the total amount displayed is correct.
-- Verify that the total matches the cart page and the checkout page.
+## Repository URL
 
-## Code Explanation
+Push your code to a git cloud repository and provide the repository URL.
 
-### 1. **Hooks.java**
+## Additional Features
 
-This class sets up and tears down the browser for each test scenario:
-- `@Before`: Opens the browser before each scenario.
-- `@After`: Closes the browser after each scenario.
+Feel free to include any other useful features that can enhance the testing framework.
 
-### 2. **Step Definitions (e.g., TC01_signUpSteps.java)**
+---
 
-Each class in the `stepDefs` package defines the steps for a specific test scenario. For example, in `TC01_signUpSteps.java`, the steps to fill the sign-up form, click the button, and validate the success message are implemented.
-
-### 3. **TestRunner.java**
-
-This class is used to run the Cucumber tests with TestNG. It specifies the feature files and step definitions to be used during test execution.
-
-### 4. **POM (pom.xml)**
-
-The `pom.xml` file contains project dependencies, including:
-- Selenium WebDriver
-- Cucumber
-- TestNG
-- ExtentReports for reporting
-
+By following these steps, you'll have a comprehensive README file for your Testing Center of Excellence. If you need any more details or additional features, feel free to ask!
